@@ -34,7 +34,7 @@ jobs:
       - name: decompiling gba doom
         run: |
           luvdis Doom.GBA -o doom.asm
-          lubdis Doom2.gba -o doom2.asm
+          luvdis Doom2.gba -o doom2.asm
       - name: Get short SHA
         id: slug
         run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
