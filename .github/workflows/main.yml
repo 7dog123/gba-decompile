@@ -31,10 +31,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install python3-pip
           python3 -m pip install luvdis --user
+          mkdir -p doom-gba doom2-gba
       - name: decompiling gba doom
         run: |
-          luvdis -co functions.cfg Doom.GBA -o doom-gba/doom.asm
-          luvdis -co functions.cfg Doom2.gba -o doom2-gba/doom2.asm
+          luvdis -co doom-gba/functions.cfg Doom.GBA -o doom-gba/doom.asm
+          luvdis -co doom2-gba/functions.cfg Doom2.gba -o doom2-gba/doom2.asm
       - name: Get short SHA
         id: slug
         run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
