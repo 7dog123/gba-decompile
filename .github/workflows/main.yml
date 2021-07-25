@@ -32,10 +32,10 @@ jobs:
           sudo apt-get install python3-pip
           python3 -m pip install luvdis --user
           mkdir -p doom-gba doom2-gba
-      - name: decompiling gba doom
+      - name: decompiling gba doom & doom 2
         run: |
-          luvdis -co doom-gba/functions.cfg Doom.GBA -o doom-gba/doom.asm
-          luvdis -co doom2-gba/functions.cfg Doom2.gba -o doom2-gba/doom2.asm
+          luvdis Doom.GBA -o doom-gba/doom.asm
+          luvdis Doom2.gba -o doom2-gba/doom2.asm
       - name: Get short SHA
         id: slug
         run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
@@ -48,3 +48,14 @@ jobs:
           path: |
              doom-gba/*
              doom2-gba/*
+      - name: Create release for master branch
+        if: github.ref == 'refs/heads/master'
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          title: "Latest  build"
+          files: |
+             doom-gba/*
+             doom2-gba/*
+
