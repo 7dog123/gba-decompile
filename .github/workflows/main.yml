@@ -33,7 +33,7 @@ jobs:
           python3 -m pip install luvdis --user
       - name: decompiling gba doom
         run: |
-          luvdis Doom.GBA -o doom.s
+          luvdis Doom.GBA --default_mode THUMB -o doom.s
       - name: read doom.s
         run: |
           cat doom.s
