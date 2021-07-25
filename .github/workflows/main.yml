@@ -33,8 +33,8 @@ jobs:
           python3 -m pip install luvdis --user
       - name: decompiling gba doom
         run: |
-          luvdis -c functions.cfg Doom.GBA -o doom-gba/doom.asm
-          luvdis -c functions.cfg Doom2.gba -o doom2-gba/doom2.asm
+          luvdis -co functions.cfg Doom.GBA -o doom-gba/doom.asm
+          luvdis -co functions.cfg Doom2.gba -o doom2-gba/doom2.asm
       - name: Get short SHA
         id: slug
         run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
