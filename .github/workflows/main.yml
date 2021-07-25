@@ -33,7 +33,15 @@ jobs:
           python3 -m pip install luvdis --user
       - name: decompiling gba doom
         run: |
-          luvdis Doom.GBA --default_mode THUMB -o doom.s
-      - name: read doom.s
-        run: |
-          cat doom.s
+          luvdis Doom.GBA -o doom.s
+      - name: Get short SHA
+        id: slug
+        run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
+
+      - name: Upload artifacts
+        if: ${{ success() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: doom-${{ steps.slug.outputs.sha8 }}
+          path: |
+             doom.s
